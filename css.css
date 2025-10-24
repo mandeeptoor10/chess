@@ -1,0 +1,154 @@
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+        /* Custom styles for an aesthetic, slightly 3D look */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212; /* Dark background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #app-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: #1e1e1e; /* Card background */
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(78, 204, 255, 0.2);
+            max-width: 90vw;
+        }
+
+        #chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            width: clamp(300px, 80vw, 600px); /* Responsive sizing */
+            height: clamp(300px, 80vw, 600px);
+            border: 8px solid #333;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            transform: rotateX(5deg); /* Slight 3D tilt effect */
+            transition: all 0.2s;
+        }
+        
+        /* Ensure the board is visually upright in 2D space */
+        .square-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            position: relative;
+            transform: rotateX(-5deg); /* Counter-rotate pieces for flat look */
+        }
+        
+        .square {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.1s;
+            cursor: pointer;
+            position: absolute; /* Needed for piece counter-rotation */
+        }
+
+        /* Light squares */
+        .light {
+            background-color: #f1d9b5;
+        }
+
+        /* Dark squares */
+        .dark {
+            background-color: #b58863;
+        }
+
+        /* Piece styling */
+        .piece {
+            font-size: clamp(30px, 6vw, 60px);
+            cursor: grab;
+            transition: transform 0.1s, text-shadow 0.1s;
+        }
+
+        .piece.white {
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .piece.black {
+            color: #000000;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+        }
+
+        /* Interaction states */
+        .selected {
+            background-color: rgba(78, 204, 255, 0.7) !important; /* Brighter highlight */
+        }
+
+        .possible-move:after {
+            content: '';
+            display: block;
+            width: 30%;
+            height: 30%;
+            background-color: rgba(30, 180, 50, 0.7);
+            border-radius: 50%;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .possible-move .piece {
+            transform: scale(1.1);
+        }
+        
+        .in-check {
+            background-color: #ff4d4d !important;
+            animation: pulse-red 1s infinite alternate;
+        }
+
+        @keyframes pulse-red {
+            from { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
+            to { box-shadow: 0 0 10px 5px rgba(255, 77, 77, 1); }
+        }
+
+        /* Message Box Styling */
+        #status-message {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            background-color: #333;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Button Styling */
+        #reset-button {
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: linear-gradient(145deg, #00b4d8, #0077b6);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        #reset-button:hover {
+            background: linear-gradient(145deg, #00a0c4, #006da2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            transform: translateY(-2px);
+        }
+    
